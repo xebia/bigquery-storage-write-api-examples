@@ -31,9 +31,9 @@ warnings.filterwarnings("ignore", "Your application has authenticated using end 
 
 class Examples(Enum):
     DEFAULT_STREAM_WRITER = "default-stream-writer"
-    PENDING_TYPE_STREAM_WRITER = "pending-stream-writer"
-    COMMITTED_TYPE_STREAM_WRITER = "committed-stream-writer"
-    BUFFERED_TYPE_STREAM_WRITER = "buffered-stream-writer"
+    PENDING_TYPE_STREAM_WRITER = "pending-type-stream-writer"
+    COMMITTED_TYPE_STREAM_WRITER = "committed-type-stream-writer"
+    BUFFERED_TYPE_STREAM_WRITER = "buffered-type-stream-writer"
 
 
 app = typer.Typer(

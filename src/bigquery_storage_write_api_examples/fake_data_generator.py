@@ -6,7 +6,7 @@ class FakeDataGenerator:
         self.faker = Faker()
         pass
 
-    def _generate_fake_student_data(self) -> dict:
+    def _generate_fake_student(self) -> dict:
         """Generate fake student data"""
         return {
             "student_id": self.faker.random_int(min=1, max=1000000),
@@ -34,7 +34,7 @@ class FakeDataGenerator:
             "metadata": self.faker.json(),
         }
 
-    def generate_fake_students_data(self, n: int) -> list[dict]:
+    def generate_fake_students(self, n: int) -> list[dict]:
         """Generate fake students data
 
         Args:
@@ -43,4 +43,27 @@ class FakeDataGenerator:
         Returns:
             list[dict]: List of fake students data
         """
-        return [self._generate_fake_student_data() for _ in range(n)]
+        return [self._generate_fake_student() for _ in range(n)]
+
+    def _generate_fake_course(self) -> dict:
+        """Generate fake course data"""
+        return {
+            "course_id": str(self.faker.random_int(min=1, max=1000000)),
+            "course_name": self.faker.word(),
+            "description": self.faker.sentence(),
+            "credits": str(self.faker.random_int(min=1, max=10)),
+            "duration_weeks": self.faker.random_int(min=1, max=10),
+            "required_materials": [self.faker.word() for _ in range(3)],
+            "created_at": int(
+                self.faker.date_time_this_year(before_now=True, after_now=False).timestamp() * 1_000_000
+            ),
+            "course_metadata": self.faker.json(),
+        }
+
+    def generate_fake_courses(self, n: int) -> list[dict]:
+        """Generate fake courses data
+
+        Args:
+            n (int): Number of fake courses to generate
+        """
+        return [self._generate_fake_course() for _ in range(n)]

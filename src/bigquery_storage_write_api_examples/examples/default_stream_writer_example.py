@@ -1,3 +1,5 @@
+import logging
+
 from google.cloud.bigquery_storage_v1 import BigQueryWriteClient
 from google.cloud.bigquery_storage_v1.types import (
     AppendRowsRequest,
@@ -11,16 +13,16 @@ from google.protobuf.json_format import ParseDict
 from line_profiler import profile
 
 from bigquery_storage_write_api_examples import Config
-from bigquery_storage_write_api_examples.data_generator import FakeDataGenerator
 from bigquery_storage_write_api_examples.entities.students.students_pb2 import (
     RawStudents,
 )
-from bigquery_storage_write_api_examples.examples import BigQueryWriterExample
+from bigquery_storage_write_api_examples.fake_data_generator import FakeDataGenerator
 
 
-class DefaultStreamWriterExample(BigQueryWriterExample):
+class DefaultStreamWriterExample:
     def __init__(self, config: Config):
-        super().__init__(project_id=config.gcp_project_id)
+        self.logger = logging.getLogger(__name__)
+        self.project_id = config.gcp_project_id
         self.dataset_id = config.gcp_dataset_id
         self.table_id = "students"
         self._init_stream()
@@ -60,7 +62,7 @@ class DefaultStreamWriterExample(BigQueryWriterExample):
     def run(self):
         self.logger.info("✨ Generating fake students data")
         number_of_students = 1_000
-        fake_students = FakeDataGenerator().generate_fake_students_data(number_of_students)
+        fake_students = FakeDataGenerator().generate_fake_students(number_of_students)
 
         self.logger.debug(f"🎓 Generated {len(fake_students)} fake students")
 
