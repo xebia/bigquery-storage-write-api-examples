@@ -1,14 +1,17 @@
 import logging
 import os
 from enum import Enum
+from pathlib import Path
 from typing import Annotated
 
 import typer
+import yaml
 
-from bigquery_storage_write_api_examples import __version__
+from bigquery_storage_write_api_examples import Config, __version__
 from bigquery_storage_write_api_examples.examples.default_stream_writer_example import (
     DefaultStreamWriterExample,
 )
+from bigquery_storage_write_api_examples.prepare_bigquery import PrepareBigQueryService
 
 logger = logging.getLogger("bigquery_storage_write_api_examples")
 logger.setLevel(logging.INFO)
@@ -41,19 +44,6 @@ def version():
 
 
 @app.command(
-    name="dump-bigquery-table-schema",
-    help="📋 Dump the BigQuery table schema",
-    no_args_is_help=False,
-)
-def _dump_bigquery_table_schema(
-    project_id: Annotated[str, typer.Argument(help="Project ID")],
-    dataset_id: Annotated[str, typer.Argument(help="Dataset ID")],
-    table_id: Annotated[str, typer.Argument(help="Table ID")],
-):
-    pass
-
-
-@app.command(
     name="run",
     help="👯 Run the BigQuery Storage Write API Example",
     no_args_is_help=False,
@@ -66,6 +56,29 @@ def _run(
     match example:
         case Examples.DEFAULT_STREAM_WRITER:
             DefaultStreamWriterExample(project_id="", dataset_id="", table_id="").run()
+
+
+@app.command(
+    name="bq-init",
+    help="📊 Create dataset and tables in BigQuery if needed",
+    no_args_is_help=False,
+)
+def bigquery_init(
+    path_to_config: Annotated[str, typer.Option(help="Path to config file")] = "conf.yaml",
+):
+    _path_to_config = Path(path_to_config).resolve()
+    if not _path_to_config.exists():
+        raise FileNotFoundError(
+            f"Config file at '{path_to_config}' does not exist, please copy conf.yaml.example to conf.yaml and fill in the values"
+        )
+
+    with _path_to_config.open("r") as inFile:
+        cnf_raw = yaml.safe_load(inFile)
+        config_ = Config(**cnf_raw)
+        logger.info("✅ Config validation passed!")
+
+        PrepareBigQueryService(config_).prepare()
+        logger.info("✅ BigQuery infrastructure prepared!")
 
 
 def entrypoint():

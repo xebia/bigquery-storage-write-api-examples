@@ -15,7 +15,31 @@
     },
     {
         "name": "schedule",
-        "type": "STRUCT<start_date DATE, end_date DATE, days_of_week ARRAY<STRING>, start_time TIME, end_time TIME>"
+        "mode": "REPEATED",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "start_date",
+                "type": "DATE"
+            },
+            {
+                "name": "end_date",
+                "type": "DATE"
+            },
+            {
+                "name": "days_of_week",
+                "mode": "REPEATED",
+                "type": "STRING"
+            },
+            {
+                "name": "start_time",
+                "type": "TIME"
+            },
+            {
+                "name": "end_time",
+                "type": "TIME"
+            }
+        ]
     },
     {
         "name": "room_number",
@@ -27,8 +51,18 @@
     },
     {
         "name": "sessions",
-        "type": "STRUCT<session_date DATE, topic STRING>",
-        "mode": "REPEATED"
+        "mode": "REPEATED",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "session_date",
+                "type": "DATE"
+            },
+            {
+                "name": "topic",
+                "type": "STRING"
+            }
+        ]
     },
     {
         "name": "exam_datetime",

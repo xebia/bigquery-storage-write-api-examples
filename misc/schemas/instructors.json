@@ -29,6 +29,17 @@
     },
     {
         "name": "office_location",
-        "type": "STRUCT<building STRING, room STRING>"
+        "mode": "REPEATED",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "building",
+                "type": "STRING"
+            },
+            {
+                "name": "room",
+                "type": "STRING"
+            }
+        ]
     }
 ]

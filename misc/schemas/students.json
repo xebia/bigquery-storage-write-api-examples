@@ -24,11 +24,43 @@
     },
     {
         "name": "contact_info",
-        "type": "STRUCT<email STRING, phone STRING>"
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "email",
+                "type": "STRING"
+            },
+            {
+                "name": "phone",
+                "type": "STRING"
+            }
+        ]
     },
     {
         "name": "address",
-        "type": "STRUCT<street STRING, city STRING, state STRING, postal_code STRING, country STRING>"
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "street",
+                "type": "STRING"
+            },
+            {
+                "name": "city",
+                "type": "STRING"
+            },
+            {
+                "name": "state",
+                "type": "STRING"
+            },
+            {
+                "name": "postal_code",
+                "type": "STRING"
+            },
+            {
+                "name": "country",
+                "type": "STRING"
+            }
+        ]
     },
     {
         "name": "emergency_contacts",

@@ -24,6 +24,21 @@
     },
     {
         "name": "fee_payment",
-        "type": "STRUCT<amount NUMERIC, currency STRING, payment_date TIMESTAMP>"
+        "mode": "REPEATED",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "amount",
+                "type": "NUMERIC"
+            },
+            {
+                "name": "currency",
+                "type": "STRING"
+            },
+            {
+                "name": "payment_date",
+                "type": "TIMESTAMP"
+            }
+        ]
     }
 ]
