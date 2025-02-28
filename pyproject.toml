@@ -3,5 +3,36 @@ name = "bigquery-storage-write-api-examples"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+requires-python = ">=3.12"
+dependencies = [
+    "google-cloud-bigquery>=3.30.0",
+    "google-cloud-bigquery-storage>=2.28.0",
+    "google-cloud-logging>=3.11.4",
+    "typer>=0.15.2",
+]
+
+[project.scripts]
+examples = "bigquery_storage_write_api_examples.cli:entrypoint"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 110
+target-version = ['py312']
+
+[tool.mypy]
+files = ["src"]
+explicit_package_bases = true
+
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "pytest>=8.3.3",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.6.5",
+    "pytest-mock>=3.14.0",
+    "pytest-httpx>=0.34.0",
+]
