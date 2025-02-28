@@ -7,6 +7,7 @@ alias l := login
 alias dse := default_stream_example
 alias pte := pending_type_stream_example
 alias cte := committed_type_stream_example
+alias bte := buffered_type_stream_writer_example
 
 alias bi := bq_init
 alias gp := generate_proto
@@ -55,3 +56,6 @@ pending_type_stream_example:
 
 committed_type_stream_example:
   LINE_PROFILE=1 uv run examples run committed-type-stream-writer
+
+buffered_type_stream_writer_example:
+  LINE_PROFILE=1 uv run examples run buffered-type-stream-writer

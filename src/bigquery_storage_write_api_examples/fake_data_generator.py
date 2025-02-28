@@ -97,3 +97,48 @@ class FakeDataGenerator:
             n (int): Number of fake enrollments to generate
         """
         return [self._generate_fake_enrollment() for _ in range(n)]
+
+    def _generate_fake_class(self) -> dict:
+        """Generate fake class data"""
+
+        return {
+            "class_id": str(self.faker.random_int(min=1, max=1000000)),
+            "course_id": str(self.faker.random_int(min=1, max=1000000)),
+            "instructor_id": self.faker.random_int(min=1, max=1000000),
+            "schedule": [
+                {
+                    "start_date": self.faker.date_time_this_year(before_now=True, after_now=False).strftime(
+                        "%Y-%m-%d"
+                    ),
+                    "end_date": self.faker.date_time_this_year(before_now=True, after_now=False).strftime(
+                        "%Y-%m-%d"
+                    ),
+                    "days_of_week": [self.faker.day_of_week() for _ in range(3)],
+                    "start_time": self.faker.time_object().strftime("%H:%M:00"),
+                    "end_time": self.faker.time_object().strftime("%H:%M:00"),
+                }
+                for _ in range(3)
+            ],
+            "room_number": self.faker.random_int(min=1, max=100),
+            "max_capacity": self.faker.random_int(min=1, max=20),
+            "sessions": [
+                {
+                    "session_date": self.faker.date_time_this_year(before_now=True, after_now=False).strftime(
+                        "%Y-%m-%d"
+                    ),
+                    "topic": self.faker.word(),
+                }
+                for _ in range(3)
+            ],
+            "exam_datetime": self.faker.date_time_this_year(before_now=True, after_now=False).strftime(
+                "%Y-%m-%d"
+            ),
+        }
+
+    def generate_fake_classes(self, n: int) -> list[dict]:
+        """Generate fake class data
+
+        Args:
+            n (int): Number of fake classes to generate
+        """
+        return [self._generate_fake_class() for _ in range(n)]

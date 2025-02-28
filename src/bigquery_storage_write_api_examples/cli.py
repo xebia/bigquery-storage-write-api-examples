@@ -10,6 +10,9 @@ import typer
 import yaml
 
 from bigquery_storage_write_api_examples import Config
+from bigquery_storage_write_api_examples.examples.buffered_type_stream_writer_example import (
+    BufferedTypeStreamWriterExample,
+)
 from bigquery_storage_write_api_examples.examples.committed_type_stream_writer_example import (
     CommittedTypeStreamWriterExample,
 )
@@ -66,8 +69,8 @@ def _run(
             PendingTypeStreamWriterExample(config_).run()
         case Examples.COMMITTED_TYPE_STREAM_WRITER:
             CommittedTypeStreamWriterExample(config_).run()
-        # case Examples.BUFFERED_TYPE_STREAM_WRITER:
-        #     BufferedTypeStreamWriterExample(config_).run()
+        case Examples.BUFFERED_TYPE_STREAM_WRITER:
+            BufferedTypeStreamWriterExample(config_).run()
 
 
 @app.command(
