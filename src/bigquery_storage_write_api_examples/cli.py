@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import warnings
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -22,6 +23,7 @@ logger.addHandler(logging.StreamHandler())
 os.environ["GRPC_VERBOSITY"] = "NONE"  # Disable grpc warning logs for BigQuery
 # grpc library comes as part of google-cloud-bigquery-storage package
 logging.getLogger("grpc").setLevel(logging.ERROR)
+warnings.filterwarnings("ignore", "Your application has authenticated using end user credentials")
 
 
 class Examples(Enum):
