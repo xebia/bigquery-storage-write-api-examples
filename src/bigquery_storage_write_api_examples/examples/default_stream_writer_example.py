@@ -23,7 +23,9 @@ class DefaultStreamWriterExample(BigQueryWriterExample):
         super().__init__(project_id=config.gcp_project_id)
         self.dataset_id = config.gcp_dataset_id
         self.table_id = "students"
+        self._init_stream()
 
+    def _init_stream(self):
         self.write_client = BigQueryWriteClient()
         self.table_path = self.write_client.table_path(self.project_id, self.dataset_id, self.table_id)
         self.stream_name = self.write_client.write_stream_path(

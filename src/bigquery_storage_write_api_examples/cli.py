@@ -13,6 +13,9 @@ from bigquery_storage_write_api_examples import Config
 from bigquery_storage_write_api_examples.examples.default_stream_writer_example import (
     DefaultStreamWriterExample,
 )
+from bigquery_storage_write_api_examples.examples.pending_type_stream_writer_example import (
+    PendingTypeStreamWriterExample,
+)
 from bigquery_storage_write_api_examples.prepare_bigquery import PrepareBigQueryService
 from bigquery_storage_write_api_examples.proto_file import ProtoFileGenerator
 
@@ -56,6 +59,12 @@ def _run(
     match example:
         case Examples.DEFAULT_STREAM_WRITER:
             DefaultStreamWriterExample(config_).run()
+        case Examples.PENDING_TYPE_STREAM_WRITER:
+            PendingTypeStreamWriterExample(config_).run()
+        # case Examples.COMMITTED_TYPE_STREAM_WRITER:
+        #     CommittedTypeStreamWriterExample(config_).run()
+        # case Examples.BUFFERED_TYPE_STREAM_WRITER:
+        #     BufferedTypeStreamWriterExample(config_).run()
 
 
 @app.command(
