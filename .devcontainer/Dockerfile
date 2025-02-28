@@ -19,7 +19,11 @@ RUN apt-get update \
         make \
         g++ \
         unzip \
-        protobuf-compiler \
+        wget \
     && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v22.4/protoc-22.4-linux-x86_64.zip \
+    && unzip protoc-22.4-linux-x86_64.zip -d /usr/local \
+    && rm protoc-22.4-linux-x86_64.zip
 
 RUN pipx install --force uv==0.4.27

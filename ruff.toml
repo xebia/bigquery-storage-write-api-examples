@@ -1,0 +1,11 @@
+# Support Python 3.10+.
+target-version = "py312"
+
+line-length = 110
+
+exclude = [
+    "src/bigquery_storage_write_api_examples/entities/*",
+]
+
+[lint.pydocstyle]
+convention = "google"
