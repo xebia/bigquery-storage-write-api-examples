@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message RawClasses {
+    string class_id = 1;
+    string course_id = 2;
+    int64 instructor_id = 3;
+    message Schedule {
+        string start_date = 1;
+        string end_date = 2;
+        repeated string days_of_week = 3;
+        string start_time = 4;
+        string end_time = 5;
+    }
+    repeated Schedule schedule = 4;
+    int64 room_number = 5;
+    int64 max_capacity = 6;
+    message Sessions {
+        string session_date = 1;
+        string topic = 2;
+    }
+    repeated Sessions sessions = 7;
+    string exam_datetime = 8;
+}

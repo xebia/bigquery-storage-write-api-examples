@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message RawInstructors {
+    int64 instructor_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string hire_date = 4;
+    bool is_active = 5;
+    repeated string subjects_taught = 6;
+    message Office_location {
+        string building = 1;
+        string room = 2;
+    }
+    repeated Office_location office_location = 7;
+}

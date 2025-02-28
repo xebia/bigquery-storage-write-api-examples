@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 from enum import Enum
@@ -7,11 +8,12 @@ from typing import Annotated
 import typer
 import yaml
 
-from bigquery_storage_write_api_examples import Config, __version__
+from bigquery_storage_write_api_examples import Config
 from bigquery_storage_write_api_examples.examples.default_stream_writer_example import (
     DefaultStreamWriterExample,
 )
 from bigquery_storage_write_api_examples.prepare_bigquery import PrepareBigQueryService
+from bigquery_storage_write_api_examples.proto_file import ProtoFileGenerator
 
 logger = logging.getLogger("bigquery_storage_write_api_examples")
 logger.setLevel(logging.INFO)
@@ -38,11 +40,6 @@ app = typer.Typer(
 )
 
 
-@app.command(short_help="📌 Displays the current version number")
-def version():
-    print(__version__)
-
-
 @app.command(
     name="run",
     help="👯 Run the BigQuery Storage Write API Example",
@@ -50,12 +47,13 @@ def version():
 )
 def _run(
     example: Annotated[Examples, typer.Argument(help="Example name")],
+    path_to_config: Annotated[str, typer.Option(help="Path to config file")] = "conf.yaml",
 ):
-    logger.info(f"🥇 BigQuery Storage Write API Examples version={__version__}")
     logger.info(f"👯 Running example: {example}")
+    config_ = _load_config(path_to_config)
     match example:
         case Examples.DEFAULT_STREAM_WRITER:
-            DefaultStreamWriterExample(project_id="", dataset_id="", table_id="").run()
+            DefaultStreamWriterExample(config_).run()
 
 
 @app.command(
@@ -66,6 +64,39 @@ def _run(
 def bigquery_init(
     path_to_config: Annotated[str, typer.Option(help="Path to config file")] = "conf.yaml",
 ):
+    config_ = _load_config(path_to_config)
+    PrepareBigQueryService(config_).prepare()
+    logger.info("✅ BigQuery infrastructure prepared!")
+
+
+@app.command(
+    name="generate-proto",
+    help="📊 Generate proto file from bigquery schema",
+    no_args_is_help=False,
+)
+def generate_proto(
+    path_to_bigquery_schema: Annotated[str, typer.Argument(help="Path to bigquery schema file")],
+    output_file: Annotated[str, typer.Argument(help="Path to output proto file")],
+):
+    logger.info(f"📊 Generating proto file from bigquery schema: {path_to_bigquery_schema}")
+    logger.info(f"📊 Output file: {output_file}")
+
+    source = Path(path_to_bigquery_schema).resolve()
+    if not source.exists() or not source.is_file() or source.suffix != ".json":
+        raise FileNotFoundError(f"🛑 Schema file not found: {source}")
+
+    schema = json.load(source.open("r"))
+    entity_name = source.stem
+    protobuff = ProtoFileGenerator.proto_file(entity_name, schema)
+
+    Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+    with open(output_file, "w") as f:
+        f.write(protobuff)
+
+    logger.info("✅ Proto file generated!")
+
+
+def _load_config(path_to_config: str) -> Config:
     _path_to_config = Path(path_to_config).resolve()
     if not _path_to_config.exists():
         raise FileNotFoundError(
@@ -76,9 +107,7 @@ def bigquery_init(
         cnf_raw = yaml.safe_load(inFile)
         config_ = Config(**cnf_raw)
         logger.info("✅ Config validation passed!")
-
-        PrepareBigQueryService(config_).prepare()
-        logger.info("✅ BigQuery infrastructure prepared!")
+        return config_
 
 
 def entrypoint():

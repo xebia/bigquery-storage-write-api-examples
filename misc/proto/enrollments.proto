@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message RawEnrollments {
+    string enrollment_id = 1;
+    int64 student_id = 2;
+    string class_id = 3;
+    string enrollment_date = 4;
+    string status = 5;
+    message Fee_payment {
+        string amount = 1;
+        string currency = 2;
+        int64 payment_date = 3;
+    }
+    repeated Fee_payment fee_payment = 6;
+}

@@ -10,6 +10,7 @@ dependencies = [
     "google-cloud-logging>=3.11.4",
     "typer>=0.15.2",
     "pydantic>=2.10.6",
+    "faker>=36.1.1",
 ]
 
 [project.scripts]

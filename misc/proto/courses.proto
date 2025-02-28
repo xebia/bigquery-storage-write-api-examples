@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message RawCourses {
+    string course_id = 1;
+    string course_name = 2;
+    string description = 3;
+    string credits = 4;
+    double duration_weeks = 5;
+    repeated string required_materials = 6;
+    int64 created_at = 7;
+    string course_metadata = 8;
+}

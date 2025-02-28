@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+message RawStudents {
+    int64 student_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string birthdate = 4;
+    int64 year = 5;
+    message Contact_info {
+        string email = 1;
+        string phone = 2;
+    }
+    Contact_info contact_info = 6;
+    message Address {
+        string street = 1;
+        string city = 2;
+        string state = 3;
+        string postal_code = 4;
+        string country = 5;
+    }
+    Address address = 7;
+    repeated string emergency_contacts = 8;
+    int64 last_login = 9;
+    string metadata = 10;
+}
