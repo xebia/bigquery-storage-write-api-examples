@@ -3,8 +3,11 @@ alias p := pre_commit
 alias s := setup
 alias t := test
 alias l := login
+
 alias dse := default_stream_example
 alias pte := pending_type_stream_example
+alias cte := committed_type_stream_example
+
 alias bi := bq_init
 alias gp := generate_proto
 alias cp := compile_proto
@@ -49,3 +52,6 @@ default_stream_example:
 
 pending_type_stream_example:
   LINE_PROFILE=1 uv run examples run pending-type-stream-writer
+
+committed_type_stream_example:
+  LINE_PROFILE=1 uv run examples run committed-type-stream-writer

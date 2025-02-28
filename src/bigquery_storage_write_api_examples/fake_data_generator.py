@@ -67,3 +67,33 @@ class FakeDataGenerator:
             n (int): Number of fake courses to generate
         """
         return [self._generate_fake_course() for _ in range(n)]
+
+    def _generate_fake_enrollment(self) -> dict:
+        """Generate fake enrollment data"""
+        return {
+            "enrollment_id": str(self.faker.random_int(min=1, max=1000000)),
+            "student_id": self.faker.random_int(min=1, max=1000000),
+            "class_id": str(self.faker.random_int(min=1, max=1000000)),
+            "enrollment_date": self.faker.date_time_this_year(before_now=True, after_now=False).isoformat(),
+            "status": self.faker.random_element(
+                elements=("active", "inactive", "pending", "completed", "cancelled")
+            ),
+            "fee_payment": [
+                {
+                    "amount": str(self.faker.random_int(min=1, max=1000000)),
+                    "currency": str(self.faker.currency_code()),
+                    "payment_date": int(
+                        self.faker.date_time_this_year(before_now=True, after_now=False).timestamp()
+                        * 1_000_000
+                    ),
+                }
+            ],
+        }
+
+    def generate_fake_enrollments(self, n: int) -> list[dict]:
+        """Generate fake enrollments data
+
+        Args:
+            n (int): Number of fake enrollments to generate
+        """
+        return [self._generate_fake_enrollment() for _ in range(n)]

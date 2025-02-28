@@ -106,6 +106,8 @@ class PendingTypeStreamWriterExample:
             self._write_courses(request=request, batch_index=batch_index, batch_size=len(batch))
             # Offset must equal the number of rows that were previously sent.
             offset += len(batch)
+
+            # The input() is used to pause the execution of the script to allow you to check the data in the table.
             input("Press Enter to continue...")
 
         # Send another batch.
@@ -132,7 +134,7 @@ class PendingTypeStreamWriterExample:
         self, request: types.AppendRowsRequest, batch_index: int, batch_size: int
     ) -> types.AppendRowsResponse:
         response_future = self.append_rows_stream.send(request)
-        self.logger.info(f"🎓 Sent batch {batch_index} with {batch_size} courses")
+        self.logger.info(f"🎓 Sending batch {batch_index} with {batch_size} courses")
         result = response_future.result()
         self.logger.info(f"🎓 Result for batch {batch_index} is {result}")
 
