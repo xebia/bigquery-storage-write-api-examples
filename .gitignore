@@ -171,3 +171,5 @@ cython_debug/
 .pypirc
 
 conf.yaml
+profile_output*.txt
+profile_output*.lprof

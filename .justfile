@@ -3,7 +3,7 @@ alias p := pre_commit
 alias s := setup
 alias t := test
 alias l := login
-alias rds := run_default_stream
+alias dse := default_stream_example
 alias bi := bq_init
 alias gp := generate_proto
 alias cp := compile_proto
@@ -43,5 +43,5 @@ compile_proto entity:
 bq_init:
   uv run examples bq-init
 
-run_default_stream:
-  uv run examples run default-stream-writer
+default_stream_example:
+  LINE_PROFILE=1 uv run examples run default-stream-writer

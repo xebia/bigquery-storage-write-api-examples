@@ -37,4 +37,5 @@ dev = [
     "ruff>=0.6.5",
     "pytest-mock>=3.14.0",
     "pytest-httpx>=0.34.0",
+    "line-profiler>=4.2.0",
 ]
