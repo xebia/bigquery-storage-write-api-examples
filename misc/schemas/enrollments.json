@@ -1,0 +1,29 @@
+[
+    {
+        "name": "enrollment_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "student_id",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "class_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "enrollment_date",
+        "type": "DATETIME"
+    },
+    {
+        "name": "status",
+        "type": "STRING"
+    },
+    {
+        "name": "fee_payment",
+        "type": "STRUCT<amount NUMERIC, currency STRING, payment_date TIMESTAMP>"
+    }
+]

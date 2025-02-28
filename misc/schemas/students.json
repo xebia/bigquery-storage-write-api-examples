@@ -1,0 +1,46 @@
+[
+    {
+        "name": "student_id",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "first_name",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "last_name",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "birthdate",
+        "type": "DATE"
+    },
+    {
+        "name": "year",
+        "type": "INTEGER"
+    },
+    {
+        "name": "contact_info",
+        "type": "STRUCT<email STRING, phone STRING>"
+    },
+    {
+        "name": "address",
+        "type": "STRUCT<street STRING, city STRING, state STRING, postal_code STRING, country STRING>"
+    },
+    {
+        "name": "emergency_contacts",
+        "type": "STRING",
+        "mode": "REPEATED"
+    },
+    {
+        "name": "last_login",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "metadata",
+        "type": "JSON"
+    }
+]
