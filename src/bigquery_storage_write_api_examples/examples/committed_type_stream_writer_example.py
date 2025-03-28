@@ -37,13 +37,13 @@ class CommittedTypeStreamWriterExample:
         self.write_client = bigquery_storage_v1.BigQueryWriteClient()
         self.table_path = self.write_client.table_path(self.project_id, self.dataset_id, self.table_id)
 
-        self.write_stream = types.WriteStream()
+        write_stream = types.WriteStream()
 
         # Data will commit automatically and appear as soon as the write is acknowledged.
         # https://cloud.google.com/bigquery/docs/reference/storage/rpc/google.cloud.bigquery.storage.v1#google.cloud.bigquery.storage.v1.WriteStream.Type
-        self.write_stream.type_ = types.WriteStream.Type.COMMITTED
+        write_stream.type_ = types.WriteStream.Type.COMMITTED
         self.write_stream = self.write_client.create_write_stream(
-            parent=self.table_path, write_stream=self.write_stream
+            parent=self.table_path, write_stream=write_stream
         )
         self.stream_name = self.write_stream.name
 
@@ -121,6 +121,8 @@ class CommittedTypeStreamWriterExample:
 
         # No need to commit the stream, it will be committed automatically
         self.logger.info(f"✅ Writes to stream: '{self.write_stream.name}' have been committed")
+
+        self.append_rows_stream.close()
 
     @profile
     def _write_enrollment(

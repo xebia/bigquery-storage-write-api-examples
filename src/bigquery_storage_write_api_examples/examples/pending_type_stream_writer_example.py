@@ -84,7 +84,7 @@ class PendingTypeStreamWriterExample:
     def run(self):
         self.logger.info("📚 Generating fake courses data")
         number_of_batches = 2
-        number_of_courses = 10
+        number_of_courses = 500
 
         faker = FakeDataGenerator()
 
